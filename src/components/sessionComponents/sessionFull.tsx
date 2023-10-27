@@ -29,7 +29,7 @@ export default function SessionFull({
     workoutId: workoutId,
     typeId: typeId,
   };
-
+  // tak dla beki
   return (
     <Provider store={store}>
       <SessionForm {...sessionFormProps} />
