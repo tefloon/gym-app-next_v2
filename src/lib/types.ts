@@ -7,7 +7,5 @@ export type SetType = {
 };
 
 export type RowControlType = {
-  index?: number;
-  isRowSelected: boolean;
-  selectedRow?: number;
+  index: number;
 };

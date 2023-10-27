@@ -2,13 +2,22 @@
 
 import React, { useState } from "react";
 import { RowControlType } from "@/lib/types";
+import { RootState } from "@/redux/setupStore";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleSelected } from "@/features/selectedSetSlice";
+import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
+import { handleAddSet } from "@/actions/addSessionAction";
 
 export default function SessionForm({
-  isRowSelected,
-  selectedRow,
-}: RowControlType) {
+  id,
+  order,
+  workoutId,
+  typeId,
+}: PrismaExerciseSession) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
+
+  const currentState = useSelector((state: RootState) => state.set);
 
   const decrementWeight = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -34,6 +43,16 @@ export default function SessionForm({
     e.preventDefault();
     setReps(0);
     setWeight(0);
+  };
+
+  const deleteSelected = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log("Elo");
+  };
+
+  const addSet = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log("Adding a Set");
   };
 
   return (
@@ -87,6 +106,7 @@ export default function SessionForm({
                   value={reps}
                   onChange={(e) => setReps(Number(e.target.value))}
                 />
+                <input type="hidden" name="sessionId" value={id} />
                 <button
                   onClick={incrementReps}
                   className="w-8 h-8 bg-gray-500 text-xl"
@@ -97,10 +117,13 @@ export default function SessionForm({
             </div>
           </div>
           <div className="flex flex-row gap-2">
-            <button className="flex-1 bg-green-700 py-1 rounded-sm font-bold">
+            <button
+              formAction={handleAddSet}
+              className="flex-1 bg-green-700 py-1 rounded-sm font-bold"
+            >
               SAVE
             </button>
-            {!isRowSelected ? (
+            {!currentState.isSelected ? (
               <button
                 onClick={resetForm}
                 className="flex-1 bg-blue-700 py-1 rounded-sm font-bold"
@@ -109,7 +132,7 @@ export default function SessionForm({
               </button>
             ) : (
               <button
-                onClick={resetForm}
+                onClick={deleteSelected}
                 className="flex-1 bg-red-700 py-1 rounded-sm font-bold"
               >
                 DELETE

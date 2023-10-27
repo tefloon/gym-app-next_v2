@@ -1,26 +1,53 @@
 "use client";
 
 import React, { ChangeEvent } from "react";
-import { SetType, RowControlType } from "@/lib/types";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/setupStore";
+import { toggleSelected } from "@/features/selectedSetSlice";
+import { ExerciseSet as PrismaExerciseSet } from "@prisma/client";
+import { RowControlType } from "@/lib/types";
 
-type SetRowProps = RowControlType & SetType;
+type SetRowProps = RowControlType & PrismaExerciseSet;
 
 export default function SetRow({
   index,
-  isRowSelected,
-  selectedRow,
   id,
-  sessionId,
+  order,
+  wasCompleted = false,
   weight,
   reps,
-  isCompleted = false,
+  sessionId,
 }: SetRowProps) {
+  const dispatch = useDispatch();
+
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // Update the set
+    e.stopPropagation();
+    console.log("Oznaczam");
   };
 
+  const handleOnSelectRow = (
+    e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
+      return; // Exit early if checkbox was clicked
+    }
+    dispatch(toggleSelected(index));
+  };
+
+  const currentState = useSelector((state: RootState) => state.set);
+
+  const commonSpanClassnames =
+    "py-2 border-b border-slate-600 flex flex-row justify-between w-full";
+
+  const selectedSpanClasses = "bg-slate-400";
+
+  let spanClass =
+    currentState.selectedSet === index
+      ? commonSpanClassnames + " " + selectedSpanClasses
+      : commonSpanClassnames;
+
   return (
-    <span className="py-2 border-b border-slate-600 flex flex-row justify-between w-full">
+    <span className={spanClass} onClick={handleOnSelectRow}>
       <div>
         <span className="font-bold text-md px-5">{index}</span>
       </div>
