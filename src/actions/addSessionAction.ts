@@ -66,7 +66,7 @@ export const handleToggleCompleted = async (
   // revalidatePath("/add-session");
 };
 
-export const handleAddSet = async (formData: FormData) => {
+export const handleAddSet = async (formData: FormData, newSetId: string) => {
   const sessionId = formData.get("sessionId"); // content to nazwa inputu
   const weight = formData.get("weight") || 0; // content to nazwa inputu
   const reps = formData.get("reps") || 0; // content to nazwa inputu
@@ -74,6 +74,7 @@ export const handleAddSet = async (formData: FormData) => {
   try {
     const createSet = await prisma.exerciseSet.create({
       data: {
+        id: newSetId,
         weight: +weight,
         reps: +reps,
         sessionId: sessionId as string,

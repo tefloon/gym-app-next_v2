@@ -5,6 +5,7 @@ import {
 
 import { handleReturnSession } from "@/actions/addSessionAction";
 import SessionFull from "@/components/sessionComponents/sessionFull";
+import SessionProviderLayer from "@/components/sessionComponents/sessionProviderLayer";
 
 type AddSessionProps = {
   workoutId: string;
@@ -31,7 +32,7 @@ export default async function AddSession() {
 
   return (
     <div className="w-96">
-      <SessionFull {...props} />
+      <SessionProviderLayer {...props} />
     </div>
   );
 }

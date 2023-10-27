@@ -119,7 +119,7 @@ export default function SessionForm({ id }: SessionFormProps) {
           <div className="flex flex-row gap-2">
             <button
               formAction={async (formData) => {
-                await handleAddSet(formData);
+                await handleAddSet(formData, "abc");
               }}
               className="flex-1 bg-green-700 py-1 rounded-sm font-bold"
             >
