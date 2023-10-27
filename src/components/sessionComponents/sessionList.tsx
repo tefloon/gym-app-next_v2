@@ -1,13 +1,10 @@
 import React from "react";
 import SetRow from "./setRow";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/setupStore";
-import { toggleSelected } from "@/features/selectedSetSlice";
+
 import {
   ExerciseSet as PrismaExerciseSet,
   ExerciseSession as PrismaExerciseSession,
 } from "@prisma/client";
-import { Session } from "inspector";
 
 type SessionListProps = {
   sets: PrismaExerciseSet[];

@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { RowControlType } from "@/lib/types";
 import { RootState } from "@/redux/setupStore";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleSelected } from "@/features/selectedSetSlice";
+import { clearSelection } from "@/features/selectedSetSlice";
 import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
 import { handleAddSet, handleDeleteSet } from "@/actions/addSessionAction";
-import { Prisma } from "@prisma/client";
 
 export default function SessionForm({
   id,
@@ -17,6 +15,7 @@ export default function SessionForm({
 }: PrismaExerciseSession) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
+  const dispatch = useDispatch();
 
   const currentState = useSelector((state: RootState) => state.set);
 
@@ -50,6 +49,7 @@ export default function SessionForm({
     e.preventDefault();
     if (currentState.isSelected) {
       handleDeleteSet(currentState.selectedSet);
+      dispatch(clearSelection());
     }
   };
 

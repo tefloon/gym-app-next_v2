@@ -19,9 +19,13 @@ export const selectedSetSlice = createSlice({
         state.selectedSet = action.payload;
       }
     },
+    clearSelection: (state) => {
+      state.isSelected = false;
+      state.selectedSet = "";
+    },
   },
 });
 
-export const { toggleSelected } = selectedSetSlice.actions;
+export const { toggleSelected, clearSelection } = selectedSetSlice.actions;
 
 export default selectedSetSlice.reducer;

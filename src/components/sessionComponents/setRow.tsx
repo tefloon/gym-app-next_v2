@@ -24,7 +24,6 @@ export default function SetRow({
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     e.stopPropagation();
-    // console.log("Checkbox is", e.target.checked ? "checked" : "unchecked");
     handleToggleCompleted(id, !wasCompleted);
     setCompleted(!completed);
   };
@@ -41,7 +40,7 @@ export default function SetRow({
   const currentState = useSelector((state: RootState) => state.set);
 
   const commonSpanClassnames =
-    "py-2 border-b border-slate-600 flex flex-row justify-between w-full";
+    "py-2 border-b border-slate-600 flex flex-row justify-between w-full select-none";
 
   const selectedSpanClasses = "bg-slate-400";
 
