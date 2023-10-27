@@ -6,7 +6,8 @@ import { RootState } from "@/redux/setupStore";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleSelected } from "@/features/selectedSetSlice";
 import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
-import { handleAddSet } from "@/actions/addSessionAction";
+import { handleAddSet, handleDeleteSet } from "@/actions/addSessionAction";
+import { Prisma } from "@prisma/client";
 
 export default function SessionForm({
   id,
@@ -47,7 +48,9 @@ export default function SessionForm({
 
   const deleteSelected = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("Elo");
+    if (currentState.isSelected) {
+      handleDeleteSet(currentState.selectedSet);
+    }
   };
 
   const addSet = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -118,7 +121,9 @@ export default function SessionForm({
           </div>
           <div className="flex flex-row gap-2">
             <button
-              formAction={handleAddSet}
+              formAction={async (formData) => {
+                await handleAddSet(formData);
+              }}
               className="flex-1 bg-green-700 py-1 rounded-sm font-bold"
             >
               SAVE

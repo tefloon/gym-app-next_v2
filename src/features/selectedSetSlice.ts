@@ -4,7 +4,7 @@ export const selectedSetSlice = createSlice({
   name: "selectedSet",
   initialState: {
     isSelected: false,
-    selectedSet: -1,
+    selectedSet: "",
   },
   reducers: {
     toggleSelected: (state, action) => {
@@ -12,7 +12,7 @@ export const selectedSetSlice = createSlice({
 
       // we selected an already selected state
       if (state.isSelected && newSelectedSet === state.selectedSet) {
-        state.selectedSet = -1;
+        state.selectedSet = "";
         state.isSelected = false;
       } else {
         state.isSelected = true;

@@ -28,7 +28,6 @@ export default async function AddSession() {
 
   return (
     <div className="w-96">
-      Siema
       <SessionFull {...props} />
     </div>
   );

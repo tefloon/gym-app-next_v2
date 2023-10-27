@@ -1,11 +1,12 @@
 "use client";
 
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/setupStore";
 import { toggleSelected } from "@/features/selectedSetSlice";
 import { ExerciseSet as PrismaExerciseSet } from "@prisma/client";
 import { RowControlType } from "@/lib/types";
+import { handleToggleCompleted } from "@/actions/addSessionAction";
 
 type SetRowProps = RowControlType & PrismaExerciseSet;
 
@@ -19,10 +20,13 @@ export default function SetRow({
   sessionId,
 }: SetRowProps) {
   const dispatch = useDispatch();
+  const [completed, setCompleted] = useState(wasCompleted);
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     e.stopPropagation();
-    console.log("Oznaczam");
+    // console.log("Checkbox is", e.target.checked ? "checked" : "unchecked");
+    handleToggleCompleted(id, !wasCompleted);
+    setCompleted(!completed);
   };
 
   const handleOnSelectRow = (
@@ -31,7 +35,7 @@ export default function SetRow({
     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
       return; // Exit early if checkbox was clicked
     }
-    dispatch(toggleSelected(index));
+    dispatch(toggleSelected(id));
   };
 
   const currentState = useSelector((state: RootState) => state.set);
@@ -42,7 +46,7 @@ export default function SetRow({
   const selectedSpanClasses = "bg-slate-400";
 
   let spanClass =
-    currentState.selectedSet === index
+    currentState.selectedSet === id
       ? commonSpanClassnames + " " + selectedSpanClasses
       : commonSpanClassnames;
 
@@ -60,7 +64,12 @@ export default function SetRow({
         <span className="text-xs font-extralight pl-1">reps</span>
       </div>
       <div className="px-3">
-        <input name="isCompleted" type="checkbox" onChange={handleOnChange} />
+        <input
+          name="isCompleted"
+          type="checkbox"
+          checked={completed}
+          onChange={(e) => handleOnChange(e, id)}
+        />
       </div>
     </span>
   );

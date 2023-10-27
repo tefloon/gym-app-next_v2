@@ -9,37 +9,6 @@ import {
 } from "@prisma/client";
 import { Session } from "inspector";
 
-// const sets = [
-//   {
-//     id: "kasia",
-//     sessionId: "abc",
-//     weight: 50,
-//     reps: 10,
-//     wasCompleted: false,
-//   },
-//   {
-//     id: "basia",
-//     sessionId: "abc",
-//     weight: 50,
-//     reps: 9,
-//     wasCompleted: false,
-//   },
-//   {
-//     id: "tomek",
-//     sessionId: "abc",
-//     weight: 50,
-//     reps: 8,
-//     wasCompleted: false,
-//   },
-//   {
-//     id: "bozena",
-//     sessionId: "abc",
-//     weight: 50,
-//     reps: 7,
-//     wasCompleted: false,
-//   },
-// ];
-
 type SessionListProps = {
   sets: PrismaExerciseSet[];
 };
