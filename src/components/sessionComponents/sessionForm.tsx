@@ -7,12 +7,9 @@ import { clearSelection } from "@/features/selectedSetSlice";
 import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
 import { handleAddSet, handleDeleteSet } from "@/actions/addSessionAction";
 
-export default function SessionForm({
-  id,
-  order,
-  workoutId,
-  typeId,
-}: PrismaExerciseSession) {
+type SessionFormProps = Pick<PrismaExerciseSession, "id">;
+
+export default function SessionForm({ id }: SessionFormProps) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
   const dispatch = useDispatch();
@@ -21,12 +18,12 @@ export default function SessionForm({
 
   const decrementWeight = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setWeight((preWeight) => preWeight - 5);
+    setWeight((preWeight) => preWeight - 2.5);
   };
 
   const incrementWeight = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setWeight((preWeight) => preWeight + 5);
+    setWeight((preWeight) => preWeight + 2.5);
   };
 
   const decrementReps = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,7 +75,7 @@ export default function SessionForm({
                   className="bg-transparent border-b text-center text-xl w-24"
                   type="number"
                   name="weight"
-                  value={weight}
+                  value={(Math.round(weight * 100) / 100).toFixed(2)}
                   onChange={(e) => setWeight(Number(e.target.value))}
                 />
                 <button
