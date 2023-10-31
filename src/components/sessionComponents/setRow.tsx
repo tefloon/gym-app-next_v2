@@ -40,9 +40,9 @@ export default function SetRow({
   const currentState = useSelector((state: RootState) => state.set);
 
   const commonSpanClassnames =
-    "py-2 border-b border-slate-600 flex flex-row justify-between w-full select-none";
+    "py-2 border-b border-slate-600 flex flex-row justify-between w-full select-none cursor-pointer hover:bg-slate-900";
 
-  const selectedSpanClasses = "bg-slate-400";
+  const selectedSpanClasses = "bg-slate-400 hover:bg-slate-500";
 
   let spanClass =
     currentState.selectedSet === id

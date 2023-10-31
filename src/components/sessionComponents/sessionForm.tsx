@@ -56,11 +56,11 @@ export default function SessionForm({ id }: SessionFormProps) {
   };
 
   return (
-    <section className="w-96 flex flex-col items-center pt-5">
+    <section className="w-96 flex flex-col items-center">
       <form action="">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-3 w-80">
-            <div className="text-sm border-b font-bold pb-1 border-blue-400">
+            <div className="text-xs border-b font-bold pb-1 border-blue-400">
               WEIGHT (kgs)
             </div>
             <div className="flex flex-row self-center">
@@ -88,7 +88,7 @@ export default function SessionForm({ id }: SessionFormProps) {
             </div>
           </div>
           <div className="flex flex-col gap-3 w-80">
-            <div className="text-sm border-b font-bold pb-1 border-blue-400">
+            <div className="text-xs border-b font-bold pb-1 border-blue-400">
               REPS
             </div>
             <div className="flex flex-row self-center">

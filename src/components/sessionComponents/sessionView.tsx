@@ -7,21 +7,23 @@ import SessionForm from "./sessionForm";
 import {
   ExerciseSet as PrismaExerciseSet,
   ExerciseSession as PrismaExerciseSession,
+  ExerciseType as PrismaExerciseType,
 } from "@prisma/client";
 import SessionList from "./sessionList";
 
-type SessionListProps = {
+type SetsListType = {
   sets: PrismaExerciseSet[];
 };
 
-type SessionFullProps = PrismaExerciseSession & SessionListProps;
+type SessionFullProps = PrismaExerciseSession & SetsListType & { name: string };
 
-export default function SessionFull({
+export default function SessionView({
   id,
   order,
   workoutId,
   typeId,
   sets,
+  name,
 }: SessionFullProps) {
   const sessionFormProps = {
     id: id,
@@ -31,9 +33,12 @@ export default function SessionFull({
   };
   // tak dla beki
   return (
-    <Provider store={store}>
-      <SessionForm {...sessionFormProps} />
-      <SessionList sets={sets} />
-    </Provider>
+    <>
+      <h2 className="text-center text-xl pt-5">{name}</h2>
+      <Provider store={store}>
+        <SessionForm {...sessionFormProps} />
+        <SessionList sets={sets} />
+      </Provider>
+    </>
   );
 }

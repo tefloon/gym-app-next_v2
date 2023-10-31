@@ -3,6 +3,65 @@
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
+import { DateTime } from "luxon";
+
+export const handleReturnWorkoutByDate = async (inputDate: Date) => {
+  const dateInLocal = DateTime.fromJSDate(inputDate).setZone("Europe/Warsaw");
+
+  const dayStart = dateInLocal.startOf("day").toUTC();
+  const dayEnd = dateInLocal.endOf("day").toUTC();
+
+  const workout = await prisma.workout.findFirst({
+    where: {
+      date: {
+        gte: dayStart.toJSDate(),
+        lte: dayEnd.toJSDate(),
+      },
+    },
+    include: {
+      person: true,
+      exercises: {
+        include: {
+          type: true,
+          sets: true,
+        },
+      },
+    },
+  });
+
+  return workout;
+};
+
+export const handleReturnWorkoutsDatesByUser = async (userEmail: string) => {
+  const workoutDatesForUser = await prisma.person.findUnique({
+    where: {
+      email: userEmail,
+    },
+    select: {
+      workouts: true,
+    },
+  });
+
+  const dates = workoutDatesForUser?.workouts.map((workout) => workout.date);
+  return dates;
+};
+
+export const handleReturnWorkoutsByUser = async (userEmail: "string") => {
+  const workouts = await prisma.person.findUnique({
+    where: {
+      email: userEmail,
+    },
+    select: {
+      workouts: {
+        select: {
+          date: true,
+        },
+      },
+    },
+  });
+
+  return workouts || [];
+};
 
 export const handleReturnSession = async (sessionId: string) => {
   const session = await prisma.exerciseSession.findFirst({
@@ -15,6 +74,7 @@ export const handleReturnSession = async (sessionId: string) => {
           order: "asc",
         },
       },
+      type: true,
     },
   });
 
@@ -67,9 +127,9 @@ export const handleToggleCompleted = async (
 };
 
 export const handleAddSet = async (formData: FormData) => {
-  const sessionId = formData.get("sessionId"); // content to nazwa inputu
-  const weight = formData.get("weight") || 0; // content to nazwa inputu
-  const reps = formData.get("reps") || 0; // content to nazwa inputu
+  const sessionId = formData.get("sessionId"); // sessionId to nazwa <input name>
+  const weight = formData.get("weight") || 0;
+  const reps = formData.get("reps") || 0;
 
   try {
     const createSet = await prisma.exerciseSet.create({

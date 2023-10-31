@@ -1,10 +1,18 @@
 import {
   ExerciseSet as PrismaExerciseSet,
   ExerciseSession as PrismaExerciseSession,
+  ExerciseType as PrismaExerciseType,
+  Workout as PrismaWorkout,
 } from "@prisma/client";
 
-import { handleReturnSession } from "@/actions/addSessionAction";
-import SessionFull from "@/components/sessionComponents/sessionFull";
+import {
+  handleReturnSession,
+  handleReturnWorkoutsByUser,
+  handleReturnWorkoutsDatesByUser,
+} from "@/actions/addSessionAction";
+import Calendar from "react-calendar";
+import MyCalendar from "@/components/calendarComponents/calendar";
+import SessionView from "@/components/sessionComponents/sessionView";
 
 type AddSessionProps = {
   workoutId: string;
@@ -21,17 +29,29 @@ export default async function AddSession() {
     sets: PrismaExerciseSet[];
   };
 
-  const currentSession = (await handleReturnSession(
-    SessionId
-  )) as PrismaExerciseSession & SetsType;
+  const currentSessionData = await handleReturnSession(SessionId);
+
+  // console.log(currentSessionData);
+
+  const { type, ...propsWithoutType } = {
+    ...currentSessionData,
+  };
 
   const props = {
-    ...currentSession,
-  };
+    ...propsWithoutType,
+    name: currentSessionData?.type.name,
+  } as PrismaExerciseSession & SetsType & Pick<PrismaExerciseType, "name">;
+
+  const dates =
+    (await handleReturnWorkoutsDatesByUser("antoni.gawlikowski@gmail.com")) ||
+    [];
+
+  console.log(dates);
 
   return (
     <div className="w-96">
-      <SessionFull {...props} />
+      <MyCalendar dates={dates} />
+      <SessionView {...props} />
     </div>
   );
 }
