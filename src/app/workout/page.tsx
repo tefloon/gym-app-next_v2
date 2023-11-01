@@ -9,7 +9,7 @@ import {
   Workout as PrismaWorkout,
   Person as PrismaPerson,
 } from "@prisma/client";
-import SessionList from "@/components/sessionComponents/sessionList";
+import SessionList from "@/components/sessionComponents/reduxSessionComponents/sessionList";
 
 type ExerciseSetWithSession = PrismaExerciseSet & {
   session: PrismaExerciseSession;
@@ -27,7 +27,7 @@ type WorkoutWithExercisesAndPerson = PrismaWorkout & {
 
 export default async function Workout() {
   // 2023-10-27 16:48:23.122
-  const date = new Date("2023-10-27 16:48:23.122");
+  const date = new Date("2023-10-27");
   // console.log(date);
 
   const workout = (await handleReturnWorkoutByDate(

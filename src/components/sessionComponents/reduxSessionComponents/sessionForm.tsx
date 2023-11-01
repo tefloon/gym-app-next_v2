@@ -1,17 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
+import { RootState } from "@/redux/setupStore";
+import { useSelector, useDispatch } from "react-redux";
+import { clearSelection } from "@/features/selectedSetSlice";
 import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
 import { handleAddSet, handleDeleteSet } from "@/actions/addSessionAction";
-import { rowsAtom } from "@/features/jotaiAtoms";
-import { useAtom } from "jotai";
 
 type SessionFormProps = Pick<PrismaExerciseSession, "id">;
 
 export default function SessionForm({ id }: SessionFormProps) {
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
-  const [row, setRow] = useAtom(rowsAtom);
+  const dispatch = useDispatch();
+
+  const currentState = useSelector((state: RootState) => state.set);
 
   const decrementWeight = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -41,9 +44,9 @@ export default function SessionForm({ id }: SessionFormProps) {
 
   const deleteSelected = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (row.isSelected) {
-      handleDeleteSet(row.selectedRow);
-      setRow({ isSelected: false, selectedRow: "" });
+    if (currentState.isSelected) {
+      handleDeleteSet(currentState.selectedSet);
+      dispatch(clearSelection());
     }
   };
 
@@ -122,7 +125,7 @@ export default function SessionForm({ id }: SessionFormProps) {
             >
               SAVE
             </button>
-            {!row.isSelected ? (
+            {!currentState.isSelected ? (
               <button
                 onClick={resetForm}
                 className="flex-1 bg-blue-700 py-1 rounded-sm font-bold"

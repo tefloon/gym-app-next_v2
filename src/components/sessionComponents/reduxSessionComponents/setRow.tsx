@@ -1,11 +1,12 @@
 "use client";
 
 import React, { ChangeEvent, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/setupStore";
+import { toggleSelected } from "@/features/selectedSetSlice";
 import { ExerciseSet as PrismaExerciseSet } from "@prisma/client";
 import { RowControlType } from "@/lib/types";
 import { handleToggleCompleted } from "@/actions/addSessionAction";
-import { useAtom } from "jotai/react";
-import { selectedRow } from "@/features/jotaiAtoms";
 
 type SetRowProps = RowControlType & PrismaExerciseSet;
 
@@ -18,8 +19,8 @@ export default function SetRow({
   reps,
   sessionId,
 }: SetRowProps) {
+  const dispatch = useDispatch();
   const [completed, setCompleted] = useState(wasCompleted);
-  const [row, setRow] = useAtom(selectedRow);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     e.stopPropagation();
@@ -33,9 +34,10 @@ export default function SetRow({
     if (e.target instanceof HTMLInputElement && e.target.type === "checkbox") {
       return; // Exit early if checkbox was clicked
     }
-    setRow(id);
-    // dispatch(toggleSelected(id));
+    dispatch(toggleSelected(id));
   };
+
+  const currentState = useSelector((state: RootState) => state.set);
 
   const commonSpanClassnames =
     "py-2 border-b border-slate-800 flex flex-row justify-between w-full select-none cursor-pointer hover:bg-slate-900";
@@ -43,7 +45,7 @@ export default function SetRow({
   const selectedSpanClasses = "bg-slate-600 hover:bg-slate-700";
 
   let spanClass =
-    row.selectedRow === id
+    currentState.selectedSet === id
       ? commonSpanClassnames + " " + selectedSpanClasses
       : commonSpanClassnames;
 

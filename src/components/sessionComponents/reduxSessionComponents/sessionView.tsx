@@ -1,6 +1,8 @@
 "use client";
 
+import { store } from "@/redux/setupStore";
 import React from "react";
+import { Provider } from "react-redux";
 import SessionForm from "./sessionForm";
 import {
   ExerciseSet as PrismaExerciseSet,
@@ -15,7 +17,6 @@ type SetsListType = {
 
 type SessionFullProps = PrismaExerciseSession & SetsListType & { name: string };
 
-// TODO: add skeleton, before children load
 export default function SessionView({
   id,
   order,
@@ -34,8 +35,10 @@ export default function SessionView({
   return (
     <>
       <h2 className="text-center text-xl pt-5">{name}</h2>
-      <SessionForm {...sessionFormProps} />
-      <SessionList sets={sets} />
+      <Provider store={store}>
+        <SessionForm {...sessionFormProps} />
+        <SessionList sets={sets} />
+      </Provider>
     </>
   );
 }

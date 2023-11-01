@@ -8,6 +8,10 @@ import { DateTime } from "luxon";
 export const handleReturnWorkoutByDate = async (inputDate: Date) => {
   const dateInLocal = DateTime.fromJSDate(inputDate).setZone("Europe/Warsaw");
 
+  if (!dateInLocal.isValid) {
+    return new Error("Invalid date");
+  }
+
   const dayStart = dateInLocal.startOf("day").toUTC();
   const dayEnd = dateInLocal.endOf("day").toUTC();
 

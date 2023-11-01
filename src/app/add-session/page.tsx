@@ -10,7 +10,7 @@ import {
   handleReturnWorkoutsByUser,
   handleReturnWorkoutsDatesByUser,
 } from "@/actions/addSessionAction";
-import Calendar from "react-calendar";
+
 import MyCalendar from "@/components/calendarComponents/calendar";
 import SessionView from "@/components/sessionComponents/sessionView";
 

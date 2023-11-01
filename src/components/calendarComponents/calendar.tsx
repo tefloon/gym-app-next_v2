@@ -41,9 +41,11 @@ export default function MyCalendar({ dates }: MyCalendarProps) {
       // Now you can manipulate the date value
       const dateInLocal = DateTime.fromJSDate(v)
         .setZone("Europe/Warsaw")
-        .toFormat("yyyy-MM-dd");
+        .toFormat("yyyy-MM-dd")
+        .toString();
+
+      console.log(`wtf: ${dateInLocal}`);
       router.push(`/workout/${dateInLocal}`);
-      console.log(dateInLocal);
     }
   };
 
