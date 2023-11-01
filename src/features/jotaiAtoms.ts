@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { Workout as PrismaWorkout } from "@prisma/client";
 
 const rowsAtom = atom({
   isSelected: false,
@@ -15,6 +16,14 @@ const selectedRowAtom = atom(
   }
 );
 
-const rowBeingDeletedAtom = atom("");
+const selectedSessionAtom = atom({
+  isSelected: false,
+  selectedSessionId: "",
+});
 
-export { rowBeingDeletedAtom, rowsAtom, selectedRowAtom };
+const workoutAtom = atom({
+  id: "abc",
+  dateString: "",
+});
+
+export { workoutAtom, selectedSessionAtom, rowsAtom, selectedRowAtom };

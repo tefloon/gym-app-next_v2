@@ -5,10 +5,7 @@ import Calendar from "react-calendar";
 // import "react-calendar/dist/Calendar.css";
 import "./myBasicCalendarStyle.css";
 import "./markedDateStyle.css";
-import {
-  handleReturnWorkoutByDate,
-  handleReturnWorkoutsByUser,
-} from "@/actions/addSessionAction";
+
 import { useRouter } from "next/navigation";
 import { DateTime } from "luxon";
 

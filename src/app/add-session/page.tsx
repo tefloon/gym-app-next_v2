@@ -12,6 +12,7 @@ import {
 
 import MyCalendar from "@/components/calendarComponents/calendar";
 import SessionView from "@/components/sessionComponents/sessionView";
+import { ExerciseSessionWithSetsAndType } from "@/lib/types";
 
 type AddSessionProps = {
   workoutId: string;
@@ -24,33 +25,18 @@ export default async function AddSession() {
   const SessionId = "030b7acd-ed30-4e02-aaca-da29e0a582af";
   const TypeID = 1;
 
-  type SetsType = {
-    sets: PrismaExerciseSet[];
-  };
-
-  const currentSessionData = await handleReturnSession(SessionId);
-
-  // console.log(currentSessionData);
-
-  const { type, ...propsWithoutType } = {
-    ...currentSessionData,
-  };
-
-  const props = {
-    ...propsWithoutType,
-    name: currentSessionData?.type.name,
-  } as PrismaExerciseSession & SetsType & Pick<PrismaExerciseType, "name">;
+  const currentSessionData = (await handleReturnSession(
+    SessionId
+  )) as ExerciseSessionWithSetsAndType;
 
   const dates =
     (await handleReturnWorkoutDatesByUser("antoni.gawlikowski@gmail.com")) ||
     [];
 
-  // console.log(dates);
-
   return (
     <div className="w-96">
       <MyCalendar dates={dates} />
-      <SessionView {...props} />
+      <SessionView {...currentSessionData} />
     </div>
   );
 }

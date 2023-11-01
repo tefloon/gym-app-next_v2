@@ -3,6 +3,9 @@ import React from "react";
 import EmptyWorkoutComponent from "@/components/workoutComponents/emptyWorkoutComponent";
 import { WorkoutWithExercisesAndPerson } from "@/lib/types";
 import ExistingWorkoutComponent from "@/components/workoutComponents/existingWorkoutComponent";
+import { useAtom } from "jotai";
+import { workoutAtom } from "@/features/jotaiAtoms";
+import WorkoutView from "@/components/workoutComponents/workoutView";
 
 export default async function WorkoutByDate({
   params,
@@ -15,12 +18,7 @@ export default async function WorkoutByDate({
   };
 
   if (!params.workoutDateString || !isValidDate(params.workoutDateString)) {
-    return (
-      <>
-        <div>Invalid date</div>
-        <div>{params.workoutDateString}</div>
-      </>
-    );
+    return <div>Invalid date: {params.workoutDateString}</div>;
   }
 
   const date = new Date(params.workoutDateString);
@@ -29,17 +27,9 @@ export default async function WorkoutByDate({
     date
   )) as WorkoutWithExercisesAndPerson | null;
 
-  // if (!workout) return <div>Workout not found</div>;
+  // let workoutLocal = workout ? JSON.stringify(workout) : null
 
-  const exerciseSessions = workout ? workout.exercises : [];
+  // Starting with this moment we operate on a sessionStorage version
 
-  return (
-    <div className="min-w-[400px] flex flex-col items-center">
-      {workout ? (
-        <ExistingWorkoutComponent exerciseSessions={exerciseSessions} />
-      ) : (
-        <EmptyWorkoutComponent />
-      )}
-    </div>
-  );
+  return <WorkoutView workout={workout} />;
 }
