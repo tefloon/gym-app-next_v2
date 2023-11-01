@@ -12,10 +12,12 @@ type SessionListProps = {
 
 export default function SessionList({ sets }: SessionListProps) {
   return (
-    <section className="w-full py-5">
-      {sets.map((set, index) => (
-        <SetRow key={set.id} {...set} index={index + 1} />
-      ))}
-    </section>
+    <>
+      <section className="w-full py-5">
+        {sets.map((set, index) => (
+          <SetRow key={set.id} {...set} index={index + 1} />
+        ))}
+      </section>
+    </>
   );
 }

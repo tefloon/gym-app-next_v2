@@ -5,7 +5,7 @@ const rowsAtom = atom({
   selectedRow: "",
 });
 
-const selectedRow = atom(
+const selectedRowAtom = atom(
   (get) => get(rowsAtom),
   (get, set, newSelectedRow: string) => {
     const currentRows = get(rowsAtom);
@@ -15,4 +15,6 @@ const selectedRow = atom(
   }
 );
 
-export { rowsAtom, selectedRow };
+const rowBeingDeletedAtom = atom("");
+
+export { rowBeingDeletedAtom, rowsAtom, selectedRowAtom };

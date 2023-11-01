@@ -7,8 +7,7 @@ import {
 
 import {
   handleReturnSession,
-  handleReturnWorkoutsByUser,
-  handleReturnWorkoutsDatesByUser,
+  handleReturnWorkoutDatesByUser,
 } from "@/actions/addSessionAction";
 
 import MyCalendar from "@/components/calendarComponents/calendar";
@@ -43,10 +42,10 @@ export default async function AddSession() {
   } as PrismaExerciseSession & SetsType & Pick<PrismaExerciseType, "name">;
 
   const dates =
-    (await handleReturnWorkoutsDatesByUser("antoni.gawlikowski@gmail.com")) ||
+    (await handleReturnWorkoutDatesByUser("antoni.gawlikowski@gmail.com")) ||
     [];
 
-  console.log(dates);
+  // console.log(dates);
 
   return (
     <div className="w-96">

@@ -36,7 +36,7 @@ export const handleReturnWorkoutByDate = async (inputDate: Date) => {
   return workout;
 };
 
-export const handleReturnWorkoutsDatesByUser = async (userEmail: string) => {
+export const handleReturnWorkoutDatesByUser = async (userEmail: string) => {
   const workoutDatesForUser = await prisma.person.findUnique({
     where: {
       email: userEmail,
@@ -48,23 +48,6 @@ export const handleReturnWorkoutsDatesByUser = async (userEmail: string) => {
 
   const dates = workoutDatesForUser?.workouts.map((workout) => workout.date);
   return dates;
-};
-
-export const handleReturnWorkoutsByUser = async (userEmail: "string") => {
-  const workouts = await prisma.person.findUnique({
-    where: {
-      email: userEmail,
-    },
-    select: {
-      workouts: {
-        select: {
-          date: true,
-        },
-      },
-    },
-  });
-
-  return workouts || [];
 };
 
 export const handleReturnSession = async (sessionId: string) => {

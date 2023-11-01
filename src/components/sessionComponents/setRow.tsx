@@ -5,7 +5,7 @@ import { ExerciseSet as PrismaExerciseSet } from "@prisma/client";
 import { RowControlType } from "@/lib/types";
 import { handleToggleCompleted } from "@/actions/addSessionAction";
 import { useAtom } from "jotai/react";
-import { selectedRow } from "@/features/jotaiAtoms";
+import { selectedRowAtom } from "@/features/jotaiAtoms";
 
 type SetRowProps = RowControlType & PrismaExerciseSet;
 
@@ -19,7 +19,7 @@ export default function SetRow({
   sessionId,
 }: SetRowProps) {
   const [completed, setCompleted] = useState(wasCompleted);
-  const [row, setRow] = useAtom(selectedRow);
+  const [row, setRow] = useAtom(selectedRowAtom);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>, id: string) => {
     e.stopPropagation();
