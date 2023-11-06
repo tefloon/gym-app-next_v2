@@ -1,5 +1,8 @@
 import React from "react";
-import { handleReturnWorkoutByDate } from "@/actions/gymDataAction";
+import {
+  handleCreateWorkout,
+  handleReturnWorkoutByDate,
+} from "@/actions/gymDataAction";
 import { WorkoutWithExercisesAndPerson } from "@/lib/types";
 import WorkoutView from "@/components/workoutComponents/workoutView";
 import { DateTime } from "luxon";
@@ -23,7 +26,12 @@ export default async function WorkoutByDate({
     date
   )) as WorkoutWithExercisesAndPerson | null;
 
-  // Starting with this moment we operate on a sessionStorage version
+  // if(!workout) {
+  //   const newWorkoutId = handleCreateWorkout()
+  // }
+
+  // Starting with this moment we WOULD LIKE TO operate on a sessionStorage version?
+
   const dateLocal = DateTime.fromISO(params.workoutDateString).toLocaleString();
 
   return (

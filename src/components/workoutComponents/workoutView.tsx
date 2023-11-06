@@ -13,8 +13,6 @@ type WorkoutViewType = {
 };
 
 export default function WorkoutView({ workout }: WorkoutViewType) {
-  const [, setCurrentWorkout] = useAtom(workoutAtom);
-
   if (!workout) {
     return <EmptyWorkoutComponent />;
   }
@@ -26,11 +24,6 @@ export default function WorkoutView({ workout }: WorkoutViewType) {
       .setZone("Europe/Warsaw")
       .toFormat("yyyy-MM-dd")
       .toString();
-
-    setCurrentWorkout({
-      id: workout.id,
-      dateString: workoutDateString,
-    });
   }, []);
 
   return (

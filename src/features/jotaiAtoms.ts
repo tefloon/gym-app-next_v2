@@ -26,4 +26,18 @@ const workoutAtom = atom({
   dateString: "",
 });
 
-export { workoutAtom, selectedSessionAtom, rowsAtom, selectedRowAtom };
+const currentUserAtom = atom({
+  id: "",
+  name: "",
+  email: "",
+});
+
+const currentUserDatesAtom = atom({});
+
+export {
+  currentUserAtom,
+  workoutAtom,
+  selectedSessionAtom,
+  rowsAtom,
+  selectedRowAtom,
+};
