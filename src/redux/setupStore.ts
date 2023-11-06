@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import selectedSetReducer from "@/features/selectedSetSlice";
-import currentWorkoutReducer from "@/features/currentWorkoutSlice";
 
 export const store = configureStore({
   reducer: {
     set: selectedSetReducer,
-    workout: currentWorkoutReducer,
   },
 });
 

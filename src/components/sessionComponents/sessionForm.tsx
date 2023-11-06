@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
-import { handleAddSet, handleDeleteSet } from "@/actions/addSessionAction";
+import { handleAddSet, handleDeleteSet } from "@/actions/gymDataAction";
 import { rowsAtom } from "@/features/jotaiAtoms";
 import { useAtom } from "jotai";
 

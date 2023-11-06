@@ -13,16 +13,11 @@ type WorkoutViewType = {
 };
 
 export default function WorkoutView({ workout }: WorkoutViewType) {
-  const CURRENT_WORKOUT_KEY = "currentWorkout";
   const [, setCurrentWorkout] = useAtom(workoutAtom);
 
   if (!workout) {
     return <EmptyWorkoutComponent />;
   }
-
-  sessionStorage.setItem(CURRENT_WORKOUT_KEY, JSON.stringify(workout));
-
-  const localWorkout = sessionStorage.getItem(CURRENT_WORKOUT_KEY);
 
   const exerciseSessions = workout.exercises;
 
@@ -37,11 +32,6 @@ export default function WorkoutView({ workout }: WorkoutViewType) {
       dateString: workoutDateString,
     });
   }, []);
-
-  // setTest({
-  //   dateString: "aslkdjasld",
-  //   id: "aisuijdh",
-  // });
 
   return (
     <div className="min-w-[400px] flex flex-col items-center">

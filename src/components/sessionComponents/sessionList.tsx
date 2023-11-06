@@ -11,10 +11,14 @@ type SessionListProps = {
 };
 
 export default function SessionList({ sets }: SessionListProps) {
+  const sortedSets = sets.sort((a, b) => {
+    return a.order - b.order;
+  });
+
   return (
     <>
       <section className="w-full py-5">
-        {sets.map((set, index) => (
+        {sortedSets.map((set, index) => (
           <SetRow key={set.id} {...set} index={index + 1} />
         ))}
       </section>

@@ -1,11 +1,8 @@
-import { handleReturnWorkoutByDate } from "@/actions/addSessionAction";
 import React from "react";
-import EmptyWorkoutComponent from "@/components/workoutComponents/emptyWorkoutComponent";
+import { handleReturnWorkoutByDate } from "@/actions/gymDataAction";
 import { WorkoutWithExercisesAndPerson } from "@/lib/types";
-import ExistingWorkoutComponent from "@/components/workoutComponents/existingWorkoutComponent";
-import { useAtom } from "jotai";
-import { workoutAtom } from "@/features/jotaiAtoms";
 import WorkoutView from "@/components/workoutComponents/workoutView";
+import { DateTime } from "luxon";
 
 export default async function WorkoutByDate({
   params,
@@ -22,14 +19,17 @@ export default async function WorkoutByDate({
   }
 
   const date = new Date(params.workoutDateString);
-
   const workout = (await handleReturnWorkoutByDate(
     date
   )) as WorkoutWithExercisesAndPerson | null;
 
-  // let workoutLocal = workout ? JSON.stringify(workout) : null
-
   // Starting with this moment we operate on a sessionStorage version
+  const dateLocal = DateTime.fromISO(params.workoutDateString).toLocaleString();
 
-  return <WorkoutView workout={workout} />;
+  return (
+    <>
+      <h1 className="mt-5 text-2xl">{dateLocal}</h1>
+      <WorkoutView workout={workout} />
+    </>
+  );
 }

@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { DateTime } from "luxon";
+import { createId } from "@paralleldrive/cuid2";
 
 export const handleReturnWorkoutByDate = async (inputDate: Date) => {
   const dateInLocal = DateTime.fromJSDate(inputDate).setZone("Europe/Warsaw");
@@ -136,4 +137,15 @@ export const handleAddSet = async (formData: FormData) => {
   }
 
   revalidatePath("/add-session");
+};
+
+export const handleCreateWorkout = async (personId: string, date: DateTime) => {
+  const workoutId = createId();
+  const createWorkout = await prisma.workout.create({
+    data: {
+      id: workoutId,
+      date: date as DateTime,
+      personId: personId,
+    },
+  });
 };

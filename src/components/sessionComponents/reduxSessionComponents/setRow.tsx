@@ -6,7 +6,7 @@ import { RootState } from "@/redux/setupStore";
 import { toggleSelected } from "@/features/selectedSetSlice";
 import { ExerciseSet as PrismaExerciseSet } from "@prisma/client";
 import { RowControlType } from "@/lib/types";
-import { handleToggleCompleted } from "@/actions/addSessionAction";
+import { handleToggleCompleted } from "@/actions/gymDataAction";
 
 type SetRowProps = RowControlType & PrismaExerciseSet;
 

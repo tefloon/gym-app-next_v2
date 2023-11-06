@@ -5,7 +5,7 @@ import { RootState } from "@/redux/setupStore";
 import { useSelector, useDispatch } from "react-redux";
 import { clearSelection } from "@/features/selectedSetSlice";
 import { ExerciseSession as PrismaExerciseSession } from "@prisma/client";
-import { handleAddSet, handleDeleteSet } from "@/actions/addSessionAction";
+import { handleAddSet, handleDeleteSet } from "@/actions/gymDataAction";
 
 type SessionFormProps = Pick<PrismaExerciseSession, "id">;
 

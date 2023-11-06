@@ -1,12 +1,13 @@
-import Link from "next/link";
-
+import { handleReturnWorkoutDatesByUser } from "@/actions/gymDataAction";
+import MyCalendar from "@/components/calendarComponents/calendar";
 export default async function Home() {
-  const dateString = "2023-10-27";
+  const dates =
+    (await handleReturnWorkoutDatesByUser("antoni.gawlikowski@gmail.com")) ||
+    [];
 
   return (
-    <div>
-      Home
-      <Link href={`/workout/${dateString}`}>Klik</Link>
+    <div className="w-[400px] py-12">
+      <MyCalendar dates={dates} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { handleReturnWorkoutByDate } from "@/actions/addSessionAction";
+import { handleReturnWorkoutByDate } from "@/actions/gymDataAction";
 import MyCard from "@/components/generalComponents/myCard";
 import { Workout } from "@prisma/client";
 import React from "react";

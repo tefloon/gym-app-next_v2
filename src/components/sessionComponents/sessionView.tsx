@@ -2,17 +2,11 @@
 
 import React from "react";
 import SessionForm from "./sessionForm";
-import {
-  ExerciseSet as PrismaExerciseSet,
-  ExerciseSession as PrismaExerciseSession,
-  ExerciseType as PrismaExerciseType,
-} from "@prisma/client";
 import SessionList from "./sessionList";
 import { ExerciseSessionWithSetsAndType } from "@/lib/types";
 import { useAtom } from "jotai";
 import { selectedSessionAtom, workoutAtom } from "@/features/jotaiAtoms";
 import { useRouter } from "next/navigation";
-import { DateTime } from "luxon";
 
 // TODO: add skeleton, before children load
 export default function SessionView({
@@ -30,7 +24,7 @@ export default function SessionView({
     typeId: typeId,
   };
 
-  const [selectedSession, setSelectedSession] = useAtom(selectedSessionAtom);
+  const [, setSelectedSession] = useAtom(selectedSessionAtom);
   const [currentWorkout] = useAtom(workoutAtom);
   const router = useRouter();
 
