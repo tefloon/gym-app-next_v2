@@ -19,7 +19,7 @@ export default function Navbar() {
         </li>
         <li>
           <div className="px-10 py-1 text-center w-56">
-            <Link href="/about">About the project</Link>
+            <Link href="/test">Test</Link>
           </div>
         </li>
       </ul>

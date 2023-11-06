@@ -1,7 +1,7 @@
 import React from "react";
 import {
   handleCreateWorkout,
-  handleReturnWorkoutByDate,
+  handleReturnFullWorkoutByDate,
 } from "@/actions/gymDataAction";
 import { WorkoutWithExercisesAndPerson } from "@/lib/types";
 import WorkoutView from "@/components/workoutComponents/workoutView";
@@ -22,7 +22,7 @@ export default async function WorkoutByDate({
   }
 
   const date = new Date(params.workoutDateString);
-  const workout = (await handleReturnWorkoutByDate(
+  const workout = (await handleReturnFullWorkoutByDate(
     date
   )) as WorkoutWithExercisesAndPerson | null;
 

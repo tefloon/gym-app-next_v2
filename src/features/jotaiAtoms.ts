@@ -23,7 +23,7 @@ const selectedSessionAtom = atom({
 
 const workoutAtom = atom({
   id: "abc",
-  dateString: "",
+  date: "",
 });
 
 const currentUserAtom = atom({

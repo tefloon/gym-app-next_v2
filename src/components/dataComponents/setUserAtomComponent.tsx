@@ -10,7 +10,7 @@ type SetAtomsProps = {
   user: PrismaPerson;
 };
 
-export default function SetAtomsComponent({ user }: SetAtomsProps) {
+export default function SetUserAtomComponent({ user }: SetAtomsProps) {
   const [, setCurrentUser] = useAtom(currentUserAtom);
   setCurrentUser(user);
 

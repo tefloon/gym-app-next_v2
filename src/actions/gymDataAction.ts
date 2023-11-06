@@ -9,6 +9,7 @@ import {
   Person as PrismaPerson,
   Workout as PrismaWorkout,
 } from "@prisma/client";
+import { formatDate } from "@/lib/formatDate";
 
 // ==============
 //    WORKOUTS
@@ -40,7 +41,7 @@ export const handleCreateWorkout = async (
   }
 };
 
-export const handleReturnWorkoutByDate = async (inputDate: Date) => {
+export const handleReturnFullWorkoutByDate = async (inputDate: Date) => {
   const dateInLocal = DateTime.fromJSDate(inputDate).setZone("Europe/Warsaw");
 
   if (!dateInLocal.isValid) {
@@ -69,6 +70,41 @@ export const handleReturnWorkoutByDate = async (inputDate: Date) => {
   });
 
   return workout;
+};
+
+export const handleReturnWorkoutBasicsByDate = async (inputDate: Date) => {
+  const dateInLocal = DateTime.fromJSDate(inputDate).setZone("Europe/Warsaw");
+
+  if (!dateInLocal.isValid) {
+    return new Error("Invalid date");
+  }
+
+  const dayStart = dateInLocal.startOf("day").toUTC();
+  const dayEnd = dateInLocal.endOf("day").toUTC();
+
+  const workout = await prisma.workout.findFirst({
+    where: {
+      date: {
+        gte: dayStart.toJSDate(),
+        lte: dayEnd.toJSDate(),
+      },
+    },
+    select: {
+      id: true,
+      date: true,
+    },
+  });
+
+  if (!workout) {
+    return new Error("Workout not found!");
+  }
+
+  const dateString = DateTime.fromJSDate(workout.date)
+    .setZone("Europe/Warsaw")
+    .toFormat("yyyy-MM-dd")
+    .toString();
+
+  return { id: workout.id, date: dateString };
 };
 
 export const handleReturnWorkoutDatesByUser = async (userEmail: string) => {

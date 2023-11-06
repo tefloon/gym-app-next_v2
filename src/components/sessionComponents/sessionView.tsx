@@ -31,7 +31,7 @@ export default function SessionView({
   const handleOnClick = () => {
     setSelectedSession({ isSelected: false, selectedSessionId: "" });
 
-    router.push(`/workout/${currentWorkout.dateString}`);
+    router.push(`/workout/${currentWorkout.date}`);
   };
 
   return (
