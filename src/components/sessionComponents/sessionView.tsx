@@ -28,7 +28,7 @@ export default function SessionView({
   const [currentWorkout] = useAtom(workoutAtom);
   const router = useRouter();
 
-  const handleOnClick = () => {
+  const handleBackClick = () => {
     setSelectedSession({ isSelected: false, selectedSessionId: "" });
 
     router.push(`/workout/${currentWorkout.date}`);
@@ -39,7 +39,7 @@ export default function SessionView({
       <h2 className="text-center text-md uppercase pt-5 pb-3">{type.name}</h2>
       <SessionForm {...sessionFormProps} />
       <SessionList sets={sets} />
-      <button onClick={handleOnClick}>Back</button>
+      <button onClick={handleBackClick}>Back</button>
     </>
   );
 }

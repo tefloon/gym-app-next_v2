@@ -32,8 +32,6 @@ const currentUserAtom = atom({
   email: "",
 });
 
-const currentUserDatesAtom = atom({});
-
 export {
   currentUserAtom,
   workoutAtom,

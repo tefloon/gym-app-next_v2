@@ -9,7 +9,6 @@ import {
   Person as PrismaPerson,
   Workout as PrismaWorkout,
 } from "@prisma/client";
-import { formatDate } from "@/lib/formatDate";
 
 // ==============
 //    WORKOUTS
@@ -57,6 +56,25 @@ export const handleReturnFullWorkoutByDate = async (inputDate: Date) => {
         gte: dayStart.toJSDate(),
         lte: dayEnd.toJSDate(),
       },
+    },
+    include: {
+      person: true,
+      exercises: {
+        include: {
+          type: true,
+          sets: true,
+        },
+      },
+    },
+  });
+
+  return workout;
+};
+
+export const handleReturnFullWorkoutId = async (workoutId: string) => {
+  const workout = await prisma.workout.findFirst({
+    where: {
+      id: workoutId,
     },
     include: {
       person: true,
@@ -178,6 +196,7 @@ export const handleAddSet = async (formData: FormData) => {
         weight: +weight,
         reps: +reps,
         sessionId: sessionId as string,
+        order: 0, // just for SQLite. Remove for production
       },
     });
   } catch (e) {

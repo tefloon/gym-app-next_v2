@@ -26,6 +26,8 @@ export default async function WorkoutByDate({
     date
   )) as WorkoutWithExercisesAndPerson | null;
 
+  console.log(workout?.exercises);
+
   // if(!workout) {
   //   const newWorkoutId = handleCreateWorkout()
   // }
@@ -37,7 +39,7 @@ export default async function WorkoutByDate({
   return (
     <>
       <h1 className="mt-5 text-2xl">{dateLocal}</h1>
-      <WorkoutView workout={workout} />
+      <WorkoutView dateString={dateLocal} workout={workout} />
     </>
   );
 }

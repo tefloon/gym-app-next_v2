@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 
 import "./myBasicCalendarStyle.css";
 import "./markedDateStyle.css";
-import { formatDate } from "@/lib/formatDate";
+import { formatDate } from "@/lib/utilFunctions";
 
 import { useRouter } from "next/navigation";
 

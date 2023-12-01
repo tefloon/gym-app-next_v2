@@ -5,11 +5,14 @@ import SessionView from "@/components/sessionComponents/sessionView";
 import { ExerciseSessionWithSetsAndType } from "@/lib/types";
 
 type AddSessionProps = {
-  workoutId: string;
+  sessionId: string;
   exerciseTypeId: number;
 };
 
-export default async function AddSession() {
+export default async function AddSession({
+  sessionId,
+  exerciseTypeId,
+}: AddSessionProps) {
   const SessionId = "030b7acd-ed30-4e02-aaca-da29e0a582af";
 
   const currentSessionData = (await handleReturnSession(

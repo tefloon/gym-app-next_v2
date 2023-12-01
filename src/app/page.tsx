@@ -4,8 +4,6 @@ import {
 } from "@/actions/gymDataAction";
 import MyCalendar from "@/components/calendarComponents/calendar";
 import SetUserAtomComponent from "@/components/dataComponents/setUserAtomComponent";
-import SetWorkoutAtomComponent from "@/components/dataComponents/setWorkoutAtomComponent";
-import { DateTime } from "luxon";
 
 export default async function Home() {
   // const handleSelectedDateChange = async (date: string) => {
@@ -26,14 +24,11 @@ export default async function Home() {
     );
     return (
       <div className="w-[400px] py-12">
-        <MyCalendar
-          // handleSelectedDateChange={handleSelectedDateChange}
-          dates={user.dates}
-        />
+        <MyCalendar dates={user.dates} />
+        {/* Because the HOME is a server component and it can't use atoms */}
         <SetUserAtomComponent
           user={{ id: user.id, email: user.email, name: user.name }}
         />
-        {/* <SetWorkoutAtomComponent workoutBasics={{id: basicWorkoutData.id, dateString: dateString}}/> */}
       </div>
     );
   } catch (error) {

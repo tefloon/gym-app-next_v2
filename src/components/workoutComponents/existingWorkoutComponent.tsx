@@ -7,7 +7,11 @@ import {
 } from "@/lib/types";
 import MyCard from "../generalComponents/myCard";
 import { useRouter } from "next/navigation";
-import { selectedRowAtom, selectedSessionAtom } from "@/features/jotaiAtoms";
+import {
+  selectedRowAtom,
+  selectedSessionAtom,
+  workoutAtom,
+} from "@/features/jotaiAtoms";
 import { useAtom } from "jotai";
 import SessionView from "../sessionComponents/sessionView";
 
@@ -19,9 +23,13 @@ export default function ExistingWorkoutComponent({
   exerciseSessions,
 }: ExistingWorkoutType) {
   const [selectedSession, setSelectedSession] = useAtom(selectedSessionAtom);
+  const [currentWorkout, setCurrentWorkout] = useAtom(workoutAtom);
+  const router = useRouter();
 
   const handleSessionClick = (session: ExerciseSessionWithSetsAndType) => {
     setSelectedSession({ isSelected: true, selectedSessionId: session.id });
+    console.log()
+    // router.push(`/workout/${currentWorkout.date}/${session.id}`);
   };
 
   const sesionToShow = exerciseSessions.find(
